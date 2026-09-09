@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": ["all"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compila todos os .c com GCC via Makefile"
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": ["clean"],
+            "problemMatcher": [],
+            "detail": "Remove artefatos de build"
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": ["run"],
+            "problemMatcher": [],
+            "detail": "Compila e executa o programa"
+        }
+    ]
+}
