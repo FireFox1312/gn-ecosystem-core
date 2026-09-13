@@ -27,17 +27,40 @@ int main(void)
         return 1;
     }
 
-    catalog[0].id = 1;
-    catalog[0].status_flags = FLAG_INSTALLED | FLAG_COMPLETED;
-    strcpy(catalog[0].title, "The Legend of Zelda: Breath of the Wild");
-    size++;
+    int option;
 
-    
-
-    for (int i = 0; i < size; i++)
+    do
     {
-        printf("Jogo %d: %s\n", catalog[i].id, catalog[i].title);
-    }
+        option = ui_show_menu();
+
+        switch (option)
+        {
+        case 1:
+            ui_success("Você entrou em listagem de Jogos!");
+            break;
+        case 2:
+            ui_success("Você entrou em cadastro de Jogos!");
+            break;
+
+        case 3:
+            ui_success("Você entrou em atualização de Jogos!");
+            break;
+        
+        case 4:
+            ui_success("Você entrou em remoção de Jogos!");
+            break;
+
+        case 0:
+            ui_success("Saindo do sistema. Até logo!");
+            break;
+
+        default:
+            ui_error("Opção inválida! Por favor, tente novamente.");
+            break;
+        }
+
+    } while (option != 0);
+    
 
     free(catalog);
     free(user);
