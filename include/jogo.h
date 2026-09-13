@@ -26,6 +26,8 @@ typedef struct
 // Assinatura da função para criar um catálogo de jogos
 Jogo* jogo_criar_catalogo(int capacidade_inicial);
 
+Jogo* jogo_redimensionar_catalogo(Jogo *catalogo, int *capacidade);
+
 // Assinatura da função para cadastrar um jogo
 void cadastrarJogo(Jogo *jogo);
 

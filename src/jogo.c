@@ -15,6 +15,24 @@ Jogo* jogo_criar_catalogo(int capacidade_inicial){
 
 }
 
+Jogo* jogo_redimensionar_catalogo(Jogo *catalogo, int *capacidade)
+{
+    int nova_capacidade = (*capacidade) * 2;
+
+    Jogo *temp = realloc( catalogo, nova_capacidade * sizeof(Jogo));
+
+    if (temp == NULL)
+    {
+        fprintf(stderr, "Erro: falha na expansao de memoria.\n");
+        return catalogo;
+    }
+    
+    *capacidade = nova_capacidade;
+
+    return temp;
+
+}
+
 void cadastrarJogo(Jogo *jogo)
 {
     // Leitura dos dados

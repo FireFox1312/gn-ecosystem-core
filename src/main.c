@@ -19,10 +19,64 @@ int main(void)
     catalogo[0].id = 1;
     catalogo[0].status = FLAG_INSTALADO | FLAG_ZERADO; //
     strcpy(catalogo[0].titulo, "The Legend of Zelda: Breath of the Wild");
-    strcpy(catalogo[0].genero, "Ação/Aventura");
-    catalogo[0].ano_lancamento = 2017;
-    catalogo[0].preco = 59.99;
     tamanho++;
+    
+    if (tamanho == capacidade)
+    {
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacidade);
+        catalogo = jogo_redimensionar_catalogo(catalogo, &capacidade);
+        printf("Nova capacidade: %d\n", capacidade);
+    }
+
+    //Adicione mais 4 jogos e coloque o if de verificação para cada 1.
+
+    catalogo[1].id = 2;
+    catalogo[1].status = FLAG_INSTALADO | FLAG_FAVORITO;
+    strcpy(catalogo[1].titulo, "Super Mario Odyssey");
+    tamanho++;
+
+    if (tamanho == capacidade)
+    {
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacidade);
+        catalogo = jogo_redimensionar_catalogo(catalogo, &capacidade);
+        printf("Nova capacidade: %d\n", capacidade);
+    }
+
+    catalogo[2].id = 3;
+    catalogo[2].status = FLAG_INSTALADO | FLAG_MULTIPLAYER;
+    strcpy(catalogo[2].titulo, "Fortnite");
+    tamanho++;
+
+    if (tamanho == capacidade)
+    {
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacidade);
+        catalogo = jogo_redimensionar_catalogo(catalogo, &capacidade);
+        printf("Nova capacidade: %d\n", capacidade);
+    }
+
+    catalogo[3].id = 4;
+    catalogo[3].status = FLAG_INSTALADO | FLAG_NUVEM;
+    strcpy(catalogo[3].titulo, "Minecraft");
+    tamanho++;
+
+    if (tamanho == capacidade)
+    {
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacidade);
+        catalogo = jogo_redimensionar_catalogo(catalogo, &capacidade);
+        printf("Nova capacidade: %d\n", capacidade);
+    }
+
+    catalogo[4].id = 5;
+    catalogo[4].status = FLAG_INSTALADO | FLAG_ZERADO | FLAG_FAVORITO;
+    strcpy(catalogo[4].titulo, "The Witcher 3: Wild Hunt");
+    tamanho++;
+
+    if (tamanho == capacidade)
+    {
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacidade);
+        catalogo = jogo_redimensionar_catalogo(catalogo, &capacidade);
+        printf("Nova capacidade: %d\n", capacidade);
+    }
 
     for (int i = 0; i < tamanho; i++)
     {
