@@ -1,12 +1,17 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <windows.h>
 
 #include "game.h"
 #include "user.h"
+#include "ui.h"
 
 int main(void)
 {
+    SetConsoleOutputCP(65001);
+
+    ui_title("=== Sistema Inicializado ===");
 
     User *user = create_user(1, "Cadu");
 
