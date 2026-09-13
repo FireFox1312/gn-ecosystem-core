@@ -23,9 +23,9 @@ int main(void)
 
     if (size == capacity)
     {
-        printf("Capacity exhausted (%d). Expanding...\n", capacity);
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacity);
         catalog = game_resize_catalog(catalog, &capacity);
-        printf("New capacity: %d\n", capacity);
+        printf("Nova capacidade: %d\n", capacity);
     }
 
     catalog[1].id = 2;
@@ -35,9 +35,9 @@ int main(void)
 
     if (size == capacity)
     {
-        printf("Capacity exhausted (%d). Expanding...\n", capacity);
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacity);
         catalog = game_resize_catalog(catalog, &capacity);
-        printf("New capacity: %d\n", capacity);
+        printf("Nova capacidade: %d\n", capacity);
     }
 
     catalog[2].id = 3;
@@ -47,9 +47,9 @@ int main(void)
 
     if (size == capacity)
     {
-        printf("Capacity exhausted (%d). Expanding...\n", capacity);
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacity);
         catalog = game_resize_catalog(catalog, &capacity);
-        printf("New capacity: %d\n", capacity);
+        printf("Nova capacidade: %d\n", capacity);
     }
 
     catalog[3].id = 4;
@@ -59,9 +59,9 @@ int main(void)
 
     if (size == capacity)
     {
-        printf("Capacity exhausted (%d). Expanding...\n", capacity);
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacity);
         catalog = game_resize_catalog(catalog, &capacity);
-        printf("New capacity: %d\n", capacity);
+        printf("Nova capacidade: %d\n", capacity);
     }
 
     catalog[4].id = 5;
@@ -71,14 +71,14 @@ int main(void)
 
     if (size == capacity)
     {
-        printf("Capacity exhausted (%d). Expanding...\n", capacity);
+        printf("Capacidade esgotada (%d). Expandindo...\n", capacity);
         catalog = game_resize_catalog(catalog, &capacity);
-        printf("New capacity: %d\n", capacity);
+        printf("Nova capacidade: %d\n", capacity);
     }
 
     for (int i = 0; i < size; i++)
     {
-        printf("Game %d: %s\n", catalog[i].id, catalog[i].title);
+        printf("Jogo %d: %s\n", catalog[i].id, catalog[i].title);
     }
 
     free(catalog);

@@ -1,4 +1,4 @@
-// Header guards to prevent multiple inclusions
+// Guardas de cabeçalho para evitar múltiplas inclusões
 
 #ifndef GAME_H
 #define GAME_H
@@ -14,7 +14,7 @@
 typedef struct
 {
     int id;
-    uint8_t status_flags;       // Bitwise-packed game status
+    uint8_t status_flags;       // Status do jogo compactado em bits
     char title[100];
     char genre[50];
     int release_year;
@@ -23,15 +23,15 @@ typedef struct
     int metacritic_score;
 } Game;
 
-// Allocates a Game array on the heap with the given initial capacity.
-// Returns a pointer to the array, or NULL on allocation failure.
+// Aloca um vetor de Game na heap com a capacidade inicial fornecida.
+// Retorna um ponteiro para o array, ou NULL em caso de falha na alocação.
 Game* game_create_catalog(int initial_capacity);
 
-// Resizes the catalog by doubling its capacity.
-// Returns the new pointer, or the original on realloc failure.
+// Redimensiona o catálogo dobrando sua capacidade.
+// Retorna o novo ponteiro, ou o original em caso de falha no realloc.
 Game* game_resize_catalog(Game *catalog, int *capacity);
 
-// Reads game data from stdin and fills the given Game struct.
+// Lê os dados de um jogo a partir da entrada padrão (stdin).
 void game_register(Game *game);
 
 #endif // GAME_H

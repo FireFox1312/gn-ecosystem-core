@@ -8,7 +8,7 @@ Game* game_create_catalog(int initial_capacity)
 
     if (catalog == NULL)
     {
-        fprintf(stderr, "Error: memory allocation failed.\n");
+        fprintf(stderr, "Erro: falha na alocacao de memoria.\n");
     }
 
     return catalog;
@@ -22,7 +22,7 @@ Game* game_resize_catalog(Game *catalog, int *capacity)
 
     if (temp == NULL)
     {
-        fprintf(stderr, "Error: memory reallocation failed.\n");
+        fprintf(stderr, "Erro: falha na expansao de memoria.\n");
         return catalog;
     }
 
@@ -33,16 +33,16 @@ Game* game_resize_catalog(Game *catalog, int *capacity)
 
 void game_register(Game *game)
 {
-    printf("Enter game ID: ");
+    printf("Digite o ID do jogo: ");
     scanf("%d", &game->id);
 
-    printf("Enter game title: ");
+    printf("Digite o nome do jogo: ");
     scanf("%s", game->title);
 
-    printf("Enter game genre: ");
+    printf("Digite o genero do jogo: ");
     scanf("%s", game->genre);
 
-    printf("Enter game price: ");
+    printf("Digite o preco do jogo: ");
     scanf("%f", &game->price);
 
     return;

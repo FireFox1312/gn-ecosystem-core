@@ -16,7 +16,7 @@ SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SOURCES))
 
 # Nome do executável
-TARGET = $(BUILD_DIR)/catalogo.exe
+TARGET = $(BUILD_DIR)/catalog.exe
 
 # ==============================================================================
 # Regras
