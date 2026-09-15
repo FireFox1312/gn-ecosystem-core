@@ -40,6 +40,9 @@ int main(void)
             break;
         case 2:
             ui_success("Você entrou em cadastro de Jogos!");
+
+            game_create(&catalog, &size, &capacity);
+
             break;
 
         case 3:
