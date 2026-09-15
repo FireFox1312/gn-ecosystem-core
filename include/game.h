@@ -31,7 +31,15 @@ Game* game_create_catalog(int initial_capacity);
 // Retorna o novo ponteiro, ou o original em caso de falha no realloc.
 Game* game_resize_catalog(Game *catalog, int *capacity);
 
-// Lê os dados de um jogo a partir da entrada padrão (stdin).
-void game_register(Game *game);
+/**
+ * @brief Adiciona um novo jogo interativamente ao catalogo.
+ * @details Realiza leituras via terminal e expande a memoria dinamicamente usando realloc
+ *          caso a capacidade limite do array seja atingida.
+ * @param catalog Ponteiro duplo para o array (permite atualizar a raiz alocada no Heap em caso de resize).
+ * @param size Ponteiro da variavel que monitora a contagem de games registrados (sera incrementado).
+ * @param capacity Ponteiro da variavel que denota o espaco real reservado na memoria.
+ */
+
+void game_create(Game **catalog, int *size, int *capacity);
 
 #endif // GAME_H
