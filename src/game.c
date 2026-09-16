@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "game.h"
+#include "ui.h"
 
 Game* game_create_catalog(int initial_capacity)
 {
@@ -140,3 +141,189 @@ void game_create(Game **catalog, int *size, int *capacity)
 
     return;
 }
+
+void game_update(Game *catalog, int size)
+{
+    int id;
+
+    printf("Digite o Id do jogo que deseja atualizar: \n");
+    scanf("%d", &id);
+    getchar();
+
+    int index = game_find_by_id(catalog, size, id);
+
+    if (index == -1)
+    {
+        ui_error("Jogo não encontrado!");
+        return;
+    }
+
+    char buffer[100];
+
+    Game *c = &catalog[index];
+
+    printf("Título atual: %s\n", c->title);
+
+    printf("Novo título (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        strcpy(c->title, buffer);
+    }
+
+    printf("Gênero atual: %s\n", c->genre);
+
+    printf("Novo gênero (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        strcpy(c->genre, buffer);
+    }
+
+    printf("Ano de lançamento atual: %d\n", c->release_year);
+
+    printf("Novo ano de lançamento (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        sscanf(buffer, "%d", &c->release_year);
+    }
+
+    printf("Preço Atual: %f\n", c->price);
+
+    printf("Novo preço (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        sscanf(buffer, "%f", &c->price);
+    }
+
+    printf("Horas jogadas atualmente: %d\n", c->hours_played);
+
+    printf("Atualização das horas jogadas (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        sscanf(buffer, "%d", &c->hours_played);
+    }
+
+    printf("Pontos no metacritic: %d\n", c->metacritic_score);
+
+    printf("Atualziação na prontuação do metacritic (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        sscanf(buffer, "%d", &c->metacritic_score);
+    }
+
+    printf("Status atual do jogo: \n");
+
+    printf("Jogo multiplayer? %s\n", (c->status_flags & FLAG_MULTIPLAYER) ? "SIM" : "NÂO");
+    printf("Jogo na nuvem? %s\n", (c->status_flags & FLAG_CLOUD) ? "SIM" : "NÂO");
+    printf("Jogo está favoritado? %s\n", (c->status_flags & FLAG_FAVORITE) ? "SIM" : "NÂO");
+    printf("Jogo está instalado? %s\n", (c->status_flags & FLAG_INSTALLED) ? "SIM" : "NÂO");
+
+    char choice;
+
+    printf("Você deseja alterar o status de multiplayer? S/N \n");
+
+    scanf(" %c", &choice);
+
+    if (choice == 'S' || choice == 's')
+    {
+        c->status_flags ^= FLAG_MULTIPLAYER;
+    }
+    getchar();
+    
+    printf("Você deseja alterar o status jogo na nuvem? S/N \n");
+
+    scanf(" %c", &choice);
+
+    if (choice == 'S' || choice == 's')
+    {
+        c->status_flags ^= FLAG_CLOUD;
+    }
+    getchar();
+
+    if (c->status_flags & FLAG_FAVORITE)
+    {
+        printf("Você deseja desfavoritar o jogo? S/N \n");
+
+        scanf(" %c", &choice);
+
+        if (choice == 'S' || choice == 's')
+        {
+            c->status_flags ^= FLAG_FAVORITE;
+        }
+        getchar();
+    }else{
+        printf("Você deseja favoritar o jogo? S/N \n");
+
+        scanf(" %c", &choice);
+
+        if (choice == 'S' || choice == 's')
+        {
+            c->status_flags ^= FLAG_FAVORITE;
+        }
+        getchar();
+    }
+    
+    if (c->status_flags & FLAG_INSTALLED)
+    {
+        printf("Você deseja desinstalar o jogo? S/N \n");
+
+        scanf(" %c", &choice);
+
+        if (choice == 'S' || choice == 's')
+        {
+            c->status_flags ^= FLAG_INSTALLED;
+        }
+        getchar();
+    }
+    else{
+        printf("Você deseja instalar o jogo? S/N \n");
+
+        scanf(" %c", &choice);
+
+        if (choice == 'S' || choice == 's')
+        {
+            c->status_flags ^= FLAG_INSTALLED;
+        }
+        getchar();
+    }
+
+}
+
+/* 
+void game_delete(Game *catalog, int *size)
+{
+    int id;
+
+    printf("Digite o Id do jogo que deseja deletar: \n");
+    scanf("%d", &id);
+    getchar();
+
+    // int index = game_find_by_id(catalog, size, id);
+
+    // ... lógica de deleção
+}
+*/
+
