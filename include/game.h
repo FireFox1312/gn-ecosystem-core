@@ -42,4 +42,23 @@ Game* game_resize_catalog(Game *catalog, int *capacity);
 
 void game_create(Game **catalog, int *size, int *capacity);
 
+/**
+ * @brief Lista todos os jogos cadastrados no catalogo de forma tabulada.
+ * @details Decodifica as flags bitwise em retornos de string booleanos legiveis para o terminal (Sim/Nao).
+ * @param catalog Ponteiro constante para o array raiz (Garante integridade de leitura).
+ * @param size Quantidade atual de jogos registrados no array.
+ */
+
+void game_list_all(const Game *catalog, int size);
+
+/**
+ * @brief Realiza uma busca linear e sequencial no array procurando uma instancia de Game pelo ID.
+ * @param catalog Ponteiro constante para o array raiz (Garante integridade de leitura).
+ * @param size Quantidade atual de jogos registrados no array.
+ * @param id Identificador exato e unico do jogo a ser rastreado.
+ * @return O indice numerico da posicao array do jogo caso localizado; -1 caso nao exista.
+ */
+
+int game_find_by_id(const Game *catalog, int size, int id);
+
 #endif // GAME_H

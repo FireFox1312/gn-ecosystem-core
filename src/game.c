@@ -32,6 +32,44 @@ Game* game_resize_catalog(Game *catalog, int *capacity)
     return temp;
 }
 
+void game_list_all(const Game *catalog, int size)
+{
+    if (size == 0)
+    {
+        printf("O catalogo está vazio.\n");
+        return;
+    }
+    else
+    {
+        for (int i = 0; i < size; i++)
+        {
+            printf("=== %s ===\n", catalog[i].title );
+
+            printf("- Gênero: %s\n", catalog[i].genre);
+            printf("- Ano de Lançamento: %d\n", catalog[i].release_year);
+            printf("- Preço: %f\n", catalog[i].price);
+            printf("- Pontos no Metacritic: %d\n", catalog[i].metacritic_score);
+            printf("- Horas jogadas: %d\n", catalog[i].hours_played);            
+            printf("O jogo é multiplayer? %s\n", (catalog[i].status_flags & FLAG_MULTIPLAYER) ? "SIM" : "NÂO");
+            printf("O jogo pode ser jogado em nuvem? %s\n", (catalog[i].status_flags & FLAG_CLOUD) ? "SIM" : "NÂO");
+            printf("O jogo está favoritado? %s\n", (catalog[i].status_flags & FLAG_FAVORITE) ? "SIM" : "NÂO");
+            printf("O jogo está instalado? %s\n", (catalog[i].status_flags & FLAG_INSTALLED) ? "SIM" : "NÂO");
+
+        }
+        
+    }
+    
+}
+
+int game_find_by_id(const Game *catalog, int size, int id)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if(catalog[i].id == id)return i;
+    }
+    return -1;
+}
+
 void game_create(Game **catalog, int *size, int *capacity)
 {
 
@@ -69,6 +107,10 @@ void game_create(Game **catalog, int *size, int *capacity)
 
     printf("Digite o preco do jogo: ");
     scanf("%f", &new_game->price);
+    getchar();
+
+    printf("Digite os pontos no Metacritic: ");
+    scanf("%d", &new_game->metacritic_score);
     getchar();
 
     char choice;

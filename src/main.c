@@ -36,19 +36,19 @@ int main(void)
         switch (option)
         {
         case 1:
-            ui_success("Você entrou em listagem de Jogos!");
+            game_list_all(catalog, size);
+            ui_success("Listagem completa");    
             break;
+            
         case 2:
-            ui_success("Você entrou em cadastro de Jogos!");
-
             game_create(&catalog, &size, &capacity);
-
+            ui_success("Jogo cadastrado.");
             break;
 
         case 3:
             ui_success("Você entrou em atualização de Jogos!");
             break;
-        
+
         case 4:
             ui_success("Você entrou em remoção de Jogos!");
             break;
