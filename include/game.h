@@ -10,6 +10,7 @@
 #define FLAG_FAVORITE    (1 << 2) // 0000 0100
 #define FLAG_MULTIPLAYER (1 << 3) // 0000 1000
 #define FLAG_CLOUD       (1 << 4) // 0001 0000
+#define FLAG_DELETED     (1 << 5) // 0010 0000
 
 typedef struct
 {
@@ -60,5 +61,9 @@ void game_list_all(const Game *catalog, int size);
  */
 
 int game_find_by_id(const Game *catalog, int size, int id);
+
+void game_update(Game *catalog, int size);
+
+void game_delete(Game **catalog, int *size);
 
 #endif // GAME_H

@@ -46,11 +46,12 @@ int main(void)
             break;
 
         case 3:
-            ui_success("Você entrou em atualização de Jogos!");
+            game_update(catalog, size);
+            ui_success("Jogo atualizado com sucesso!");
             break;
 
         case 4:
-            ui_success("Você entrou em remoção de Jogos!");
+            game_delete(&catalog, &size);
             break;
 
         case 0:
