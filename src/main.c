@@ -51,7 +51,7 @@ int main(void)
             break;
 
         case 4:
-            ui_success("Você entrou em remoção de Jogos!");
+            game_delete(&catalog, &size);
             break;
 
         case 0:

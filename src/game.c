@@ -312,8 +312,8 @@ void game_update(Game *catalog, int size)
 
 }
 
-/* 
-void game_delete(Game *catalog, int *size)
+
+void game_delete(Game **catalog, int *size)
 {
     int id;
 
@@ -321,9 +321,26 @@ void game_delete(Game *catalog, int *size)
     scanf("%d", &id);
     getchar();
 
-    // int index = game_find_by_id(catalog, size, id);
+    int index = game_find_by_id(*catalog, *size, id);
 
-    // ... lógica de deleção
+    if (index == -1)
+    {
+        ui_error("Jogo não encontrado!");
+        return;
+    }
+    
+    int elements = (*size) - index -1;
+
+    memmove(
+        &((*catalog)[index]), //O destino
+        &((*catalog)[index + 1]), //A origem de onde vai ser puxado
+        elements * sizeof(Game) // O tamanho dos jogos a serem realocado
+    );
+    
+    (*size)--;
+
+    ui_success("Jogo deletado com sucesso!\n");
+
 }
-*/
+
 

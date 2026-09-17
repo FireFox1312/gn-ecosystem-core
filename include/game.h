@@ -64,6 +64,6 @@ int game_find_by_id(const Game *catalog, int size, int id);
 
 void game_update(Game *catalog, int size);
 
-// void game_delete(Game *catalog, int size);
+void game_delete(Game **catalog, int *size);
 
 #endif // GAME_H
