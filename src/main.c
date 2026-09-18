@@ -11,7 +11,7 @@ int main(void)
 {
     SetConsoleOutputCP(65001);
 
-    ui_title("=== Sistema Inicializado ===");
+    ui_title("Sistema Inicializado");
 
     User *user = create_user(1, "Cadu");
 
@@ -37,9 +37,9 @@ int main(void)
         {
         case 1:
             game_list_all(catalog, size);
-            ui_success("Listagem completa");    
+            ui_success("Listagem completa");
             break;
-            
+
         case 2:
             game_create(&catalog, &size, &capacity);
             ui_success("Jogo cadastrado.");
@@ -64,7 +64,6 @@ int main(void)
         }
 
     } while (option != 0);
-    
 
     free(catalog);
     free(user);

@@ -4,7 +4,7 @@
 #include "game.h"
 #include "ui.h"
 
-Game* game_create_catalog(int initial_capacity)
+Game *game_create_catalog(int initial_capacity)
 {
     Game *catalog = malloc(initial_capacity * sizeof(*catalog));
 
@@ -16,7 +16,7 @@ Game* game_create_catalog(int initial_capacity)
     return catalog;
 }
 
-Game* game_resize_catalog(Game *catalog, int *capacity)
+Game *game_resize_catalog(Game *catalog, int *capacity)
 {
     int new_capacity = (*capacity) * 2;
 
@@ -44,29 +44,40 @@ void game_list_all(const Game *catalog, int size)
     {
         for (int i = 0; i < size; i++)
         {
-            printf("=== %s ===\n", catalog[i].title );
+            // Cabeçalho
+            printf("\n%-4s | %-25s | %-12s | %-4s | %-6s | %-5s | %s\n",
+                   "ID", "TÍTULO", "GÊNERO", "ANO", "PREÇO", "NOTA", "STATUS");
+            printf("----------------------------------------------------------------------------------\n");
 
-            printf("- Gênero: %s\n", catalog[i].genre);
-            printf("- Ano de Lançamento: %d\n", catalog[i].release_year);
-            printf("- Preço: %f\n", catalog[i].price);
-            printf("- Pontos no Metacritic: %d\n", catalog[i].metacritic_score);
-            printf("- Horas jogadas: %d\n", catalog[i].hours_played);            
-            printf("O jogo é multiplayer? %s\n", (catalog[i].status_flags & FLAG_MULTIPLAYER) ? "SIM" : "NÂO");
-            printf("O jogo pode ser jogado em nuvem? %s\n", (catalog[i].status_flags & FLAG_CLOUD) ? "SIM" : "NÂO");
-            printf("O jogo está favoritado? %s\n", (catalog[i].status_flags & FLAG_FAVORITE) ? "SIM" : "NÂO");
-            printf("O jogo está instalado? %s\n", (catalog[i].status_flags & FLAG_INSTALLED) ? "SIM" : "NÂO");
+            for (int i = 0; i < size; i++)
+            {
+                // Representação da flag em caractere
+                char f_mult = (catalog[i].status_flags & FLAG_MULTIPLAYER) ? 'M' : '-';
+                char f_cld = (catalog[i].status_flags & FLAG_CLOUD) ? 'C' : '-';
+                char f_fav = (catalog[i].status_flags & FLAG_FAVORITE) ? 'F' : '-';
+                char f_inst = (catalog[i].status_flags & FLAG_INSTALLED) ? 'I' : '-';
 
+                // O formato %-Ns alinha as strings à esquerda preenchendo com espaços até N caracteres
+                printf("%-4d | %-25s | %-12s | %-4d | R$%-4.2f | %-5d | [%c %c %c %c]\n",
+                       catalog[i].id,
+                       catalog[i].title,
+                       catalog[i].genre,
+                       catalog[i].release_year,
+                       catalog[i].price,
+                       catalog[i].metacritic_score,
+                       f_mult, f_cld, f_fav, f_inst);
+            }
+            printf("----------------------------------------------------------------------------------\n");
         }
-        
     }
-    
 }
 
 int game_find_by_id(const Game *catalog, int size, int id)
 {
     for (int i = 0; i < size; i++)
     {
-        if(catalog[i].id == id)return i;
+        if (catalog[i].id == id)
+            return i;
     }
     return -1;
 }
@@ -78,7 +89,7 @@ void game_create(Game **catalog, int *size, int *capacity)
     {
         *catalog = game_resize_catalog(*catalog, capacity);
     }
-    
+
     Game *new_game = &((*catalog)[*size]);
 
     new_game->id = *size + 1;
@@ -101,7 +112,7 @@ void game_create(Game **catalog, int *size, int *capacity)
     printf("Digite o genero do jogo: ");
     scanf("%s", new_game->genre);
     getchar();
-    
+
     printf("Digite o ano de lancamento do jogo: ");
     scanf("%d", &new_game->release_year);
     getchar();
@@ -252,7 +263,7 @@ void game_update(Game *catalog, int size)
         c->status_flags ^= FLAG_MULTIPLAYER;
     }
     getchar();
-    
+
     printf("Você deseja alterar o status jogo na nuvem? S/N \n");
 
     scanf(" %c", &choice);
@@ -274,7 +285,9 @@ void game_update(Game *catalog, int size)
             c->status_flags ^= FLAG_FAVORITE;
         }
         getchar();
-    }else{
+    }
+    else
+    {
         printf("Você deseja favoritar o jogo? S/N \n");
 
         scanf(" %c", &choice);
@@ -285,7 +298,7 @@ void game_update(Game *catalog, int size)
         }
         getchar();
     }
-    
+
     if (c->status_flags & FLAG_INSTALLED)
     {
         printf("Você deseja desinstalar o jogo? S/N \n");
@@ -298,7 +311,8 @@ void game_update(Game *catalog, int size)
         }
         getchar();
     }
-    else{
+    else
+    {
         printf("Você deseja instalar o jogo? S/N \n");
 
         scanf(" %c", &choice);
@@ -309,9 +323,7 @@ void game_update(Game *catalog, int size)
         }
         getchar();
     }
-
 }
-
 
 void game_delete(Game **catalog, int *size)
 {
@@ -328,19 +340,27 @@ void game_delete(Game **catalog, int *size)
         ui_error("Jogo não encontrado!");
         return;
     }
-    
-    int elements = (*size) - index -1;
+
+    int elements = (*size) - index - 1;
+
+    // Confirmação de Segurança
+    char confirmation;
+    printf("Voce esta prestes a DELETAR o jogo '%s'. Tem certeza? [S/N]: ", (*catalog)[index].title);
+    scanf(" %c", &confirmation);
+
+    if (confirmation != 'S' && confirmation != 's')
+    {
+        ui_error("Exclusao cancelada pelo usuario!");
+        return;
+    }
 
     memmove(
-        &((*catalog)[index]), //O destino
-        &((*catalog)[index + 1]), //A origem de onde vai ser puxado
-        elements * sizeof(Game) // O tamanho dos jogos a serem realocado
+        &((*catalog)[index]),     // O destino
+        &((*catalog)[index + 1]), // A origem de onde vai ser puxado
+        elements * sizeof(Game)   // O tamanho dos jogos a serem realocado
     );
-    
+
     (*size)--;
 
     ui_success("Jogo deletado com sucesso!\n");
-
 }
-
-
