@@ -51,8 +51,9 @@ int ui_show_menu()
 
     printf("  %s[1]%s Listar Jogos do Catálogo\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[2]%s Cadastrar Novo Jogo\n", COLOR_YELLOW, COLOR_RESET);
-    printf("  %s[3]%s Atualizar Instância\n", COLOR_YELLOW, COLOR_RESET);
-    printf("  %s[4]%s Remover (Hard Delete)\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[3]%s Atualizar Jogo\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[4]%s Remover Jogo\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[5]%s Ver Ranking Pessoal\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[0]%s Sair do Sistema\n", COLOR_RED, COLOR_RESET);
 
     printf("%s========================================%s\n", COLOR_CYAN, COLOR_RESET);
