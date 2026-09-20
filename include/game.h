@@ -22,6 +22,9 @@ typedef struct
     float price;
     int hours_played;
     int metacritic_score;
+    float user_rating;
+    int total_achievements;
+    int current_achievements;
 } Game;
 
 // Aloca um vetor de Game na heap com a capacidade inicial fornecida.

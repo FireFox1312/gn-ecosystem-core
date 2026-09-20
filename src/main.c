@@ -6,6 +6,7 @@
 #include "game.h"
 #include "user.h"
 #include "ui.h"
+#include "recommender.h"
 
 int main(void)
 {
@@ -52,6 +53,11 @@ int main(void)
 
         case 4:
             game_delete(&catalog, &size);
+            break;
+
+        case 5:
+            game_ordenation(catalog, size);
+            game_list_all(catalog, size);
             break;
 
         case 0:
