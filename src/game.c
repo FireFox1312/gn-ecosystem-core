@@ -45,29 +45,33 @@ void game_list_all(const Game *catalog, int size)
         for (int i = 0; i < size; i++)
         {
             // Cabeçalho
-            printf("\n%-4s | %-25s | %-12s | %-4s | %-6s | %-5s | %s\n",
-                   "ID", "TÍTULO", "GÊNERO", "ANO", "PREÇO", "NOTA", "STATUS");
-            printf("----------------------------------------------------------------------------------\n");
+            printf("\n%-4s | %-20s | %-12s | %-4s | %-8s | %-10s | %-9s | %-9s | %s\n",
+                   "ID", "TÍTULO", "GÊNERO", "ANO", "PREÇO", "METACRITIC", "STATUS", "AVALIAÇÃO", "CONQUISTAS");
+            printf("--------------------------------------------------------------------------------------------------------\n");
 
-            for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++)
             {
                 // Representação da flag em caractere
-                char f_mult = (catalog[i].status_flags & FLAG_MULTIPLAYER) ? 'M' : '-';
-                char f_cld = (catalog[i].status_flags & FLAG_CLOUD) ? 'C' : '-';
-                char f_fav = (catalog[i].status_flags & FLAG_FAVORITE) ? 'F' : '-';
-                char f_inst = (catalog[i].status_flags & FLAG_INSTALLED) ? 'I' : '-';
+                char f_mult = (catalog[j].status_flags & FLAG_MULTIPLAYER) ? 'M' : '-';
+                char f_cld = (catalog[j].status_flags & FLAG_CLOUD) ? 'C' : '-';
+                char f_fav = (catalog[j].status_flags & FLAG_FAVORITE) ? 'F' : '-';
+                char f_inst = (catalog[j].status_flags & FLAG_INSTALLED) ? 'I' : '-';
 
                 // O formato %-Ns alinha as strings à esquerda preenchendo com espaços até N caracteres
-                printf("%-4d | %-25s | %-12s | %-4d | R$%-4.2f | %-5d | [%c %c %c %c]\n",
-                       catalog[i].id,
-                       catalog[i].title,
-                       catalog[i].genre,
-                       catalog[i].release_year,
-                       catalog[i].price,
-                       catalog[i].metacritic_score,
-                       f_mult, f_cld, f_fav, f_inst);
+                printf("%-4d | %-20s | %-12s | %-4d | R$%-5.2f | %-10d | [%c %c %c %c] | %-9.1f | %d / %d\n",
+                       catalog[j].id,
+                       catalog[j].title,
+                       catalog[j].genre,
+                       catalog[j].release_year,
+                       catalog[j].price,
+                       catalog[j].metacritic_score,
+                       f_mult, f_cld, f_fav, f_inst,
+                       catalog[j].user_rating,
+                       catalog[j].current_achievements,
+                       catalog[j].total_achievements);
             }
-            printf("----------------------------------------------------------------------------------\n");
+            printf("--------------------------------------------------------------------------------------------------------\n");
+            break; // A listagem estava repetindo o cabeçalho e os jogos N vezes (tinha um for dentro do for iterando a mesma variável 'size')
         }
     }
 }
@@ -124,6 +128,15 @@ void game_create(Game **catalog, int *size, int *capacity)
     printf("Digite os pontos no Metacritic: ");
     scanf("%d", &new_game->metacritic_score);
     getchar();
+
+    new_game->user_rating = 0;
+
+    new_game->current_achievements = 0;
+
+    printf("Digite a quantidade de conquistas do jogo: ");
+    scanf("%d", &new_game->total_achievements);
+    getchar();
+
 
     char choice;
 
@@ -245,7 +258,44 @@ void game_update(Game *catalog, int size)
         sscanf(buffer, "%d", &c->metacritic_score);
     }
 
-    printf("Status atual do jogo: \n");
+    printf("Nota atual de avaliação do jogo: %f\n", c->user_rating);
+
+    printf("Nova nota atribuída ao jogo (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        sscanf(buffer, "%f", &c->user_rating);
+    }
+
+    printf("Quantidade máxima de conquistas do jogo: %d\n", c->total_achievements);
+
+    printf("Nova quantidade de conquistas (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        sscanf(buffer, "%d", &c->total_achievements);
+    }
+
+    printf("Quantidade de conquistas obtidas: %d\n", c->current_achievements);
+
+    printf("Nova quantidade de conquistas obtidas (Aperte Enter caso não queira alterar): \n");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    if (buffer[0] != '\n')
+    {
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        sscanf(buffer, "%d", &c->current_achievements);
+    }
+
+
+    printf("--- Status atual do jogo --- \n");
 
     printf("Jogo multiplayer? %s\n", (c->status_flags & FLAG_MULTIPLAYER) ? "SIM" : "NÂO");
     printf("Jogo na nuvem? %s\n", (c->status_flags & FLAG_CLOUD) ? "SIM" : "NÂO");
