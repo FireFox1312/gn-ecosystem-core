@@ -45,9 +45,9 @@ void game_list_all(const Game *catalog, int size)
         for (int i = 0; i < size; i++)
         {
             // Cabeçalho
-            printf("\n%-4s | %-20s | %-12s | %-4s | %-8s | %-10s | %-9s | %-9s | %s\n",
-                   "ID", "TÍTULO", "GÊNERO", "ANO", "PREÇO", "METACRITIC", "STATUS", "AVALIAÇÃO", "CONQUISTAS");
-            printf("--------------------------------------------------------------------------------------------------------\n");
+            printf("\n%-4s | %-20s | %-12s | %-4s | %-8s | %-5s | %-10s | %-9s | %-9s | %s\n",
+                   "ID", "TÍTULO", "GÊNERO", "ANO", "PREÇO", "HORAS", "METACRITIC", "STATUS", "AVALIAÇÃO", "CONQUISTAS");
+            printf("------------------------------------------------------------------------------------------------------------------\n");
 
             for (int j = 0; j < size; j++)
             {
@@ -58,19 +58,20 @@ void game_list_all(const Game *catalog, int size)
                 char f_inst = (catalog[j].status_flags & FLAG_INSTALLED) ? 'I' : '-';
 
                 // O formato %-Ns alinha as strings à esquerda preenchendo com espaços até N caracteres
-                printf("%-4d | %-20s | %-12s | %-4d | R$%-5.2f | %-10d | [%c %c %c %c] | %-9.1f | %d / %d\n",
+                printf("%-4d | %-20s | %-12s | %-4d | R$%-5.2f | %-5d | %-10d | [%c %c %c %c] | %-9.1f | %d / %d\n",
                        catalog[j].id,
                        catalog[j].title,
                        catalog[j].genre,
                        catalog[j].release_year,
                        catalog[j].price,
+                       catalog[j].hours_played,
                        catalog[j].metacritic_score,
                        f_mult, f_cld, f_fav, f_inst,
                        catalog[j].user_rating,
                        catalog[j].current_achievements,
                        catalog[j].total_achievements);
             }
-            printf("--------------------------------------------------------------------------------------------------------\n");
+            printf("------------------------------------------------------------------------------------------------------------------\n");
             break; // A listagem estava repetindo o cabeçalho e os jogos N vezes (tinha um for dentro do for iterando a mesma variável 'size')
         }
     }

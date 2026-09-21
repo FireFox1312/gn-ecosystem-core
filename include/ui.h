@@ -32,4 +32,6 @@ void ui_success(const char *msg);
 
 int ui_show_menu(void);
 
+int ui_show_sort_menu(void);
+
 #endif /* UI_H */

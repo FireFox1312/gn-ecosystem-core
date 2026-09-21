@@ -73,3 +73,29 @@ int ui_show_menu()
 
     return choice;
 }
+
+int ui_show_sort_menu(void)
+{
+    ui_title("MENU DE ORDENAÇÃO");
+
+    printf("  %s[1]%s Nota Pessoal\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[2]%s Preço Crescente\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[3]%s Horas Jogadas Decrescente\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[0]%s Voltar\n", COLOR_RED, COLOR_RESET);
+
+    printf("%s========================================%s\n", COLOR_CYAN, COLOR_RESET);
+
+    int choice;
+    printf("%sEscolha uma opção de ordenação:%s ", COLOR_BOLD, COLOR_RESET);
+
+    if (scanf("%d", &choice) != 1)
+    {
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
+
+        choice = -1;
+    }
+
+    return choice;
+}
