@@ -23,11 +23,11 @@ void game_ordenation(Game *catalog, int size)
 
                 swapped++;
             }
-            if (swapped == 0)
-            {
-                break;
-            }
-            
+        }
+
+        if (swapped == 0)
+        {
+            break;
         }
     }
 }
