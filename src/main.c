@@ -56,9 +56,35 @@ int main(void)
             break;
 
         case 5:
-            game_ordenation(catalog, size);
-            game_list_all(catalog, size);
+        {
+            int sort_option = ui_show_sort_menu();
+            switch (sort_option)
+            {
+            case 1:
+                game_ordenation(catalog, size);
+                game_list_all(catalog, size);
+                ui_success("Catálogo ordenado por Nota Pessoal.");
+                break;
+            case 2:
+                if (size > 0)
+                    recommender_quicksort(catalog, 0, size - 1, compare_by_price_asc);
+                game_list_all(catalog, size);
+                ui_success("Catálogo ordenado por Preço Crescente.");
+                break;
+            case 3:
+                if (size > 0)
+                    recommender_quicksort(catalog, 0, size - 1, compare_by_hours_desc);
+                game_list_all(catalog, size);
+                ui_success("Catálogo ordenado por Horas Jogadas.");
+                break;
+            case 0:
+                break;
+            default:
+                ui_error("Opção de ordenação inválida.");
+                break;
+            }
             break;
+        }
 
         case 0:
             ui_success("Saindo do sistema. Até logo!");
