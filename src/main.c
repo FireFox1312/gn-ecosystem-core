@@ -62,20 +62,28 @@ int main(void)
             {
             case 1:
                 game_ordenation(catalog, size);
-                game_list_all(catalog, size);
+                game_list_ranked(catalog, size);
                 ui_success("Catálogo ordenado por Nota Pessoal.");
                 break;
             case 2:
                 if (size > 0)
                     recommender_quicksort(catalog, 0, size - 1, compare_by_price_asc);
-                game_list_all(catalog, size);
+                game_list_ranked(catalog, size);
                 ui_success("Catálogo ordenado por Preço Crescente.");
                 break;
             case 3:
                 if (size > 0)
                     recommender_quicksort(catalog, 0, size - 1, compare_by_hours_desc);
-                game_list_all(catalog, size);
+                game_list_ranked(catalog, size);
                 ui_success("Catálogo ordenado por Horas Jogadas.");
+                break;
+            case 4:
+                if (size > 0)
+                {
+                    recommender_quicksort(catalog, 0, size - 1, compare_by_score_desc);
+                }
+                game_list_ranked(catalog, size);
+                ui_success("Catálogo rankeado com sucesso.");
                 break;
             case 0:
                 break;

@@ -81,6 +81,7 @@ int ui_show_sort_menu(void)
     printf("  %s[1]%s Nota Pessoal\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[2]%s Preço Crescente\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[3]%s Horas Jogadas Decrescente\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[4]%s Recomendado pelo sistema (Score Ponderado)\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[0]%s Voltar\n", COLOR_RED, COLOR_RESET);
 
     printf("%s========================================%s\n", COLOR_CYAN, COLOR_RESET);

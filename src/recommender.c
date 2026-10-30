@@ -88,3 +88,38 @@ void recommender_quicksort(Game *catalog, int low, int high, GameComparator cmp)
         recommender_quicksort(catalog, pi + 1, high, cmp);
     }
 }
+
+float recommender_calculate_score(const Game *game)
+{
+
+    if (game == NULL)
+    {
+        return 0.0f;
+    }
+
+    float score;
+
+    score = (game->user_rating * 0.6f) + (game->hours_played * 0.4f);
+
+    return score;
+}
+
+int compare_by_score_desc(const Game *a, const Game *b)
+{
+
+    float score_a = recommender_calculate_score(a);
+    float score_b = recommender_calculate_score(b);
+
+    if (score_a > score_b)
+    {
+        return -1;
+    }
+    else if (score_a < score_b)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
