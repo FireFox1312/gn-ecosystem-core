@@ -56,6 +56,14 @@ void game_create(Game **catalog, int *size, int *capacity);
 void game_list_all(const Game *catalog, int size);
 
 /**
+ * @brief Lista todos os jogos do catálogo destacando o Top 3 (pódio) nas primeiras posições.
+ * @details Ideal para ser chamada após algoritmos de ordenação no submenu.
+ * @param catalog Ponteiro constante para o array de jogos já ordenado.
+ * @param size Quantidade atual de jogos registrados no array.
+ */
+void game_list_ranked(const Game *catalog, int size);
+
+/**
  * @brief Realiza uma busca linear e sequencial no array procurando uma instancia de Game pelo ID.
  * @param catalog Ponteiro constante para o array raiz (Garante integridade de leitura).
  * @param size Quantidade atual de jogos registrados no array.

@@ -34,4 +34,21 @@ int compare_by_price_asc(const Game *a, const Game *b);
 
 int compare_by_hours_desc(const Game *a, const Game *b);
 
+/**
+ * @brief Calcula a pontuação de um jogo com base em seus atributos.
+ * @param game Ponteiro para o jogo.
+ * @return A pontuação calculada.
+ */
+
+float recommender_calculate_score(const Game *game);
+
+/**
+ * @brief Compara dois jogos por pontuação em ordem decrescente.
+ * @param a Ponteiro para o primeiro jogo.
+ * @param b Ponteiro para o segundo jogo.
+ * @return Valor negativo se 'a' tiver pontuação maior que 'b', positivo se 'a' tiver pontuação menor que 'b', 0 se forem iguais.
+ */
+
+int compare_by_score_desc(const Game *a, const Game *b);
+
 #endif // RECOMMENDER_H
