@@ -72,9 +72,66 @@ void game_list_all(const Game *catalog, int size)
                        catalog[j].total_achievements);
             }
             printf("------------------------------------------------------------------------------------------------------------------\n");
-            break; // A listagem estava repetindo o cabeçalho e os jogos N vezes (tinha um for dentro do for iterando a mesma variável 'size')
+            break;
         }
     }
+}
+
+void game_list_ranked(const Game *catalog, int size)
+{
+    if (size <= 0 || catalog == NULL)
+    {
+        printf("O catalogo está vazio.\n");
+        return;
+    }
+
+    // Cabeçalho com a coluna POSIÇÃO alinhada (11 colunas visuais antes da barra)
+    printf("\nPOSIÇÃO     | %-4s | %-20s | %-12s | %-4s | %-8s | %-5s | %-10s | %-9s | %-9s | %s\n",
+           "ID", "TÍTULO", "GÊNERO", "ANO", "PREÇO", "HORAS", "METACRITIC", "STATUS", "AVALIAÇÃO", "CONQUISTAS");
+    printf("--------------------------------------------------------------------------------------------------------------------------------\n");
+
+    for (int i = 0; i < size; i++)
+    {
+        // 1. Imprime a colocação destacando o Top 3 (pódio)
+        if (i == 0)
+        {
+            printf("%s🥇 1º LUGAR%s | ", COLOR_YELLOW, COLOR_RESET);
+        }
+        else if (i == 1)
+        {
+            printf("%s🥈 2º LUGAR%s | ", COLOR_CYAN, COLOR_RESET);
+        }
+        else if (i == 2)
+        {
+            printf("%s🥉 3º LUGAR%s | ", COLOR_MAGENTA, COLOR_RESET);
+        }
+        else
+        {
+            printf("  %2dº LUGAR | ", i + 1);
+        }
+
+        // 2. Extrai as flags de status
+        char f_mult = (catalog[i].status_flags & FLAG_MULTIPLAYER) ? 'M' : '-';
+        char f_cld = (catalog[i].status_flags & FLAG_CLOUD) ? 'C' : '-';
+        char f_fav = (catalog[i].status_flags & FLAG_FAVORITE) ? 'F' : '-';
+        char f_inst = (catalog[i].status_flags & FLAG_INSTALLED) ? 'I' : '-';
+
+        // 3. Imprime os dados do jogo daquela posição
+        printf("%-4d | %-20s | %-12s | %-4d | R$%-5.2f | %-5d | %-10d | [%c %c %c %c] | %-9.1f | %d / %d\n",
+               catalog[i].id,
+               catalog[i].title,
+               catalog[i].genre,
+               catalog[i].release_year,
+               catalog[i].price,
+               catalog[i].hours_played,
+               catalog[i].metacritic_score,
+               f_mult, f_cld, f_fav, f_inst,
+               catalog[i].user_rating,
+               catalog[i].current_achievements,
+               catalog[i].total_achievements);
+    }
+
+    printf("--------------------------------------------------------------------------------------------------------------------------------\n");
 }
 
 int game_find_by_id(const Game *catalog, int size, int id)
@@ -137,7 +194,6 @@ void game_create(Game **catalog, int *size, int *capacity)
     printf("Digite a quantidade de conquistas do jogo: ");
     scanf("%d", &new_game->total_achievements);
     getchar();
-
 
     char choice;
 
@@ -294,7 +350,6 @@ void game_update(Game *catalog, int size)
 
         sscanf(buffer, "%d", &c->current_achievements);
     }
-
 
     printf("--- Status atual do jogo --- \n");
 
