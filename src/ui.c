@@ -54,6 +54,7 @@ int ui_show_menu()
     printf("  %s[3]%s Atualizar Jogo\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[4]%s Remover Jogo\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[5]%s Ver Ranking Pessoal\n", COLOR_YELLOW, COLOR_RESET);
+    printf("  %s[6]%s  Ver Milestone Tracker (Progresso)\n", COLOR_YELLOW, COLOR_RESET);
     printf("  %s[0]%s Sair do Sistema\n", COLOR_RED, COLOR_RESET);
 
     printf("%s========================================%s\n", COLOR_CYAN, COLOR_RESET);
@@ -99,4 +100,62 @@ int ui_show_sort_menu(void)
     }
 
     return choice;
+}
+
+float clamp(float valor, float minimo, float maximo)
+{
+    // Se o valor for menor que o mínimo, retorna o mínimo.
+    // Se for maior que o máximo, retorna o máximo.
+    // Caso contrário, retorna o valor.
+    return (valor < minimo)   ? minimo
+           : (valor > maximo) ? maximo
+                              : valor;
+}
+
+void ui_progress_bar(float percentage, int width)
+{
+    float progress;
+
+    // Calcula o progresso
+    progress = clamp(percentage, 0.0f, 100.0f);
+
+    int filled, empty;
+
+    // Calcula os blocos vazios e preenchidos do unicode
+    filled = (int)((progress / 100.0f * width));
+    empty = width - filled;
+
+    int color;
+
+    // Define a cor que será usada a depender do progresso
+    if (progress < 40)
+    {
+        color = 1;
+    }
+    else if (progress >= 75)
+    {
+        color = 3;
+    }
+    else
+    {
+        color = 2;
+    }
+
+    // Display da barra de progresso
+
+    printf("[ %s ", (color == 1) ? COLOR_RED : (color == 2) ? COLOR_YELLOW
+                                                            : COLOR_GREEN);
+
+    for (int i = 0; i < filled; i++)
+    {
+        printf("\u2588");
+    }
+    printf("%s", COLOR_GRAY);
+
+    for (int i = 0; i < empty; i++)
+    {
+        printf("\u2591");
+    }
+
+    printf("] %s %.1f%% %s\n ", COLOR_BOLD, percentage, COLOR_RESET);
 }

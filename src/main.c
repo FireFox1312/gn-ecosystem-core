@@ -93,6 +93,9 @@ int main(void)
             }
             break;
         }
+        case 6:
+            user_display_milestone_tracker(user, catalog, size);
+            break;
 
         case 0:
             ui_success("Saindo do sistema. Até logo!");

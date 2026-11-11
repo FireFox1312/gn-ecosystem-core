@@ -34,4 +34,13 @@ int ui_show_menu(void);
 
 int ui_show_sort_menu(void);
 
+/**
+ * @brief Renderiza uma barra de progresso visual com blocos Unicode e cores dinâmicas.
+ * @details Utiliza os blocos preenchido (U+2588) e sombreado (U+2591), alternando as
+ *          cores ANSI de acordo com a faixa percentual (verde >= 75%, amarelo 40-74%, vermelho < 40%).
+ * @param percentage Valor percentual do progresso (0.0f a 100.0f).
+ * @param width Quantidade de blocos de largura da barra no terminal.
+ */
+void ui_progress_bar(float percentage, int width);
+
 #endif /* UI_H */
